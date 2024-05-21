@@ -201,7 +201,7 @@ class Vault:
         else:
             asset_filter = f"NetworkAddress eq '{server_ip}'"
 
-        filter_string = f"({asset_filter}) AND ({protocol_filter})"
+        filter_string = f"({asset_filter})"
 
         url = self._get_broker_resource("RequestableAssets")
         request = {

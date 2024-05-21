@@ -1,0 +1,6 @@
+api: 1.0
+type: aa
+name: SGAARACF
+version: 1.0
+description: Safeguard Authentication and Authorization plugin for RACF
+entry_point: main.py

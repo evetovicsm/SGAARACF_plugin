@@ -62,6 +62,9 @@ class Plugin(AAPlugin):
             response["User"], response["Groups"]
         )
     def do_authorize(self):
+        if 'AccountName' not in self.connection.key_value_pairs:
+            return AAResponse.need_info("Username on the server: ", "AccountName")
+        
         self.session_cookie["WorkflowStatus"] = "token-granted"
         token = self.connection.key_value_pairs.get("token")
 
@@ -97,7 +100,6 @@ class Plugin(AAPlugin):
             )
 
         vault = Vault.connect_vault(vaultaddress)
-
         try:
             vault.authorize_session(
                 token=self.session_cookie["token"],
@@ -107,7 +109,7 @@ class Plugin(AAPlugin):
                 client_port=self.connection.client_port,
                 server_hostname=asset_network_address,
                 server_port=self.connection.server_port,
-                server_username=self.target_server_username,
+                server_username=self.connection.key_value_pairs['AccountName'],
                 protocol=self.connection.protocol,
             )
 
@@ -151,7 +153,7 @@ class Plugin(AAPlugin):
 
         accounts = vault.get_accounts_in_scope_for_asset_by_name(
             asset_id=asset_id,
-            account_name=None,
+            account_name=self.connection.key_value_pairs['AccountName'],
             account_domain=self.connection.server_domain,
             auth_provider=auth_provider,
             auth_user=auth_user,

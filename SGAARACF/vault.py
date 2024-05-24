@@ -226,9 +226,10 @@ class Vault:
         if account_domain:
             account_filter = f"Name ieq '{account_name}' AND ((DomainName eq null) OR (DomainName ieq '{account_domain}'))"
         else:
-            account_filter = f"Name ieq '{account_name}'"
+            account_filter = f"Name ieq '{account_name}' AND DomainName eq null"
 
         request = {
+            "Filter": account_filter,
             "ForUser": auth_user,
             "ForProvider": auth_provider,
         }

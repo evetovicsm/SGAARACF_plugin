@@ -126,7 +126,7 @@ class Vault:
             "clientIp": client_ip,
             "clientPort": client_port,
             "targetServer": server_hostname,
-            "targetPort": server_port,
+            "targetPort": 23,
             "targetUserName": server_username,
             "protocol": protocol,
         }
